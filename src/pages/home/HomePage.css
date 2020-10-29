@@ -1,0 +1,28 @@
+body {
+	background:#fff;
+}
+
+.btn.btn-sm.indigo:hover{
+  color: #fff;
+}
+
+.sectionPage {
+  position: relative;
+  top: -15px;
+  margin-bottom: -125px;
+}
+
+.sectionPage::after {
+  content: '';
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: url('https://mdbootstrap.com/wp-content/uploads/2016/12/big-bundle1.jpg');
+  background-position: center center;
+  background-size: cover;
+  filter: opacity(.1);
+}
+
+.modal-form .md-form .prefix {
+  left: 0;
+}
