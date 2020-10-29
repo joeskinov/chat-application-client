@@ -17,15 +17,7 @@
     width: 3rem;
   }
   
-  .chat-room .chat-message:nth-of-type(even) {
+  /* .chat-room .chat-message:nth-of-type(even) {
     flex-direction: row-reverse;
-  }
+  } */
   
-  .chat-room .scrollable-friends-list {
-    height: 570px;
-  }
-  
-  .chat-room .scrollable-chat {
-    height: 510px;
-    padding-bottom: 15px;
-  }

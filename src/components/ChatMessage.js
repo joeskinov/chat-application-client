@@ -3,7 +3,7 @@ import { MDBCard, MDBCardBody} from "mdbreact";
 
 import {convertDate, trunc} from './../config/functions';
 
-const ChatMessage = ({ message: { author, creator, createdAt, message } }) => (
+const ChatMessage = ({ msg: { creator, message, chatRoom, createdAt } }) => (
   <li className="chat-message d-flex justify-content-between mb-4">
     <img
       tag="img"

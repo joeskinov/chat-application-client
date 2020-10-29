@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MDBInput, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 import { connect } from 'react-redux';
-import {createUser, getToken} from './../../actions/users';
+import {createUser, fetchUsers, getToken} from './../../actions/users';
 
 class RegisterModal extends Component {
 
@@ -49,7 +49,8 @@ toggle = () => {
 }
 
 render() {
-  
+  if(this.props.userDetails.isAuthenticated)
+    window.open('/chat', '_self');
   return (
     <div>
       <MDBBtn color="primary" onClick={this.toggle}>Register</MDBBtn>
@@ -90,10 +91,12 @@ render() {
 }
 
 const mapStateToProps = (state) => ({
-  userDetails: state.userSignup,
+  newUserDetails: state.userSignup,
+  userDetails: state.fetchUsers,
 });
 const mapDispatchToProps = {
-  createUser
+  createUser,
+  fetchUsers,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterModal);

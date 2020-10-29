@@ -8,7 +8,7 @@ import {
 const initialState = {
   isFetching: false,
   errorMessage: '',
-  chatmessages: [],
+  chatmessages: [{participants:null, creator:{picture:null}}],
 };
 
 const fetchChatmessageReducer = (state = initialState, action) => {

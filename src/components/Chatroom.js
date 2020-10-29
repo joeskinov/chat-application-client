@@ -4,7 +4,7 @@ import { MDBListGroupItem, MDBBadge, MDBIcon} from "mdbreact";
 import {convertDate, trunc} from './../config/functions';
 
 const Chatroom = ({
-  friend: { id, name, creator, message, createdAt, participants, seen, toRespond, active },
+  friend: { id, name, creator, user2, message, createdAt, participants, seen, toRespond, active },
   setChatRoom
 }) => (
   <MDBListGroupItem
@@ -14,13 +14,13 @@ const Chatroom = ({
     onClick={() => setChatRoom(id)}
   >
     <img
-      src={creator.picture}
+      src={user2.picture}
       alt="avatar"
-      style={{width: "57px", height: "57px"}}
+      style={{width: "57px", height: "57px", borderRadius:"57px"}}
       className="mr-2 z-depth-1"
     />
     <div style={{ fontSize: "0.95rem" }}>
-      <strong>{name}</strong>
+      <strong>{user2.name}</strong>
       <p className="text-muted">{message}</p>
     </div>
     <div>

@@ -101,7 +101,8 @@ message:
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 }
 ],
-currentChat:'',
+selectedChat:'',
+message: '',
 roomsPage: 1,
 roomsLimit: 10,
 messagesPage: 1,
@@ -111,18 +112,29 @@ messagesLimit: 10,
 setChatRoom = (roomId) => {
   // write code to set a particular chatroom here
   console.log('roomId ', roomId);
+  this.setState({
+    selectedChat: roomId,
+  }, () => {
+    this.props.fetchChatmessages({ page: this.state.messagesPage, limit: this.state.messagesLimit, chatRoom: this.state.selectedChat });
+  });
 }
 handleRefresh = () => {
   this.props.fetchChatrooms({ page: this.state.roomsPage, limit: this.state.roomsLimit, filter: 'none' });
-  this.props.fetchChatmessages({ page: this.state.messagesPage, limit: this.state.messagesLimit, filter: 'none' });
+}
+
+myChangeHandler = (event) => {
+  console.log(event.target.id);
+  if(event.target.id === 'message')
+    this.setState({message: event.target.value});
 }
 
 sendMessage = () => {
   // write code here to send message
-  console.log('ok');
+  console.log(this.state.selectedChat);
+  this.props.createChatmessage({ chatRoom: this.state.selectedChat, message: this.state.message });
 }
 
-componentDidMount() { 
+componentWillMount() { 
   this.handleRefresh();
 }
 
@@ -134,7 +146,7 @@ return (
     <MDBRow className="px-lg-2 px-2">
       <MDBCol md="6" xl="4" className="px-0 mb-2 mb-md-0">
         <h6 className="font-weight-bold mb-3 text-lg-left">Member</h6>
-        <CreateRoomModal/>
+        <CreateRoomModal />
         <div>
           <div className="white z-depth-1 p-3">
           <MDBListGroup className="friend-list">
@@ -149,11 +161,11 @@ return (
         <div className="scrollable-chat">
           <MDBListGroup className="list-unstyled pl-3">
             {this.props.chatmessages.chatmessages.map(message => (
-            <ChatMessage key={message.id} message={message} />
+            <ChatMessage key={message.id} msg={message} />
             ))}
             <li>
               <div className="form-group basic-textarea">
-                <MDBInput label="Enter text message here" />
+                <MDBInput label="Enter text message here" id="message" onChange={this.myChangeHandler} />
                 <MDBBtn
                         color="info"
                         rounded
@@ -180,7 +192,8 @@ const mapStateToProps = state => {
     return {
         chatrooms: state.fetchChatrooms,
         chatmessages: state.fetchChatmessage,
+        newchatmessage: state.createChatmessage,
     };
 }
 
-export default connect(mapStateToProps, { fetchChatrooms, fetchChatmessages })(ChatPage);
+export default connect(mapStateToProps, { fetchChatrooms, createChatmessage, fetchChatmessages })(ChatPage);

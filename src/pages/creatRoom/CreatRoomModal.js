@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MDBInput, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 import { connect } from 'react-redux';
 import { fetchUsers } from './../../actions/users';
-import { createChatroom } from './../../actions/chatroom';
+import { createChatroom, fetchChatrooms } from './../../actions/chatroom';
 
 class CreateRoomModal extends Component {
 
@@ -47,6 +47,7 @@ onCheckBoxChange = (event) => {
 }
 
 toggle = () => {
+  this.handleRefresh();
   this.setState({
     modal: !this.state.modal
   });
@@ -94,10 +95,12 @@ render() {
 const mapStateToProps = (state) => ({
   chatroomDetails: state.createChatroom,
   fetchedUsers: state.fetchUsers,
+  fetchedRooms: state.fetchChatrooms,
 });
 const mapDispatchToProps = {
   createChatroom,
   fetchUsers,
+  fetchChatrooms,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateRoomModal);
