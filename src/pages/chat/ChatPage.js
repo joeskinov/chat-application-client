@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchChatrooms, createChatroom } from './../../actions/chatroom';
 import { fetchChatmessages, createChatmessage } from './../../actions/chatmessage';
 import { MDBCard, MDBCardBody, MDBRow, MDBCol, MDBListGroup, MDBInput, MDBBtn} from "mdbreact";
+import { toast } from 'react-toastify';
 import "./ChatPage.css";
 
 //import components
@@ -115,13 +116,16 @@ setChatRoom = (roomId) => {
   this.setState({
     selectedChat: roomId,
   }, () => {
-    this.props.fetchChatmessages({ page: this.state.messagesPage, limit: this.state.messagesLimit, chatRoom: this.state.selectedChat });
+    this.handleRefreshMessages();
   });
 }
 handleRefresh = () => {
   this.props.fetchChatrooms({ page: this.state.roomsPage, limit: this.state.roomsLimit, filter: 'none' });
 }
 
+handleRefreshMessages = () =>  {
+  this.props.fetchChatmessages({ page: this.state.messagesPage, limit: this.state.messagesLimit, chatRoom: this.state.selectedChat });
+}
 myChangeHandler = (event) => {
   console.log(event.target.id);
   if(event.target.id === 'message')
@@ -138,6 +142,15 @@ componentWillMount() {
   this.handleRefresh();
 }
 
+componentDidUpdate(prevProps) {
+  // Typical usage (don't forget to compare props):
+  if (this.props.newchatmessage !== prevProps.newchatmessage) {
+    if (this.props.newchatmessage.isSuccess){
+      toast('message sent!');
+      this.handleRefreshMessages();
+    }
+  }
+}
 
 render() {
 return (
@@ -146,7 +159,7 @@ return (
     <MDBRow className="px-lg-2 px-2">
       <MDBCol md="6" xl="4" className="px-0 mb-2 mb-md-0">
         <h6 className="font-weight-bold mb-3 text-lg-left">Member</h6>
-        <CreateRoomModal />
+        <CreateRoomModal reloadChatrooms={this.handleRefresh} />
         <div>
           <div className="white z-depth-1 p-3">
           <MDBListGroup className="friend-list">

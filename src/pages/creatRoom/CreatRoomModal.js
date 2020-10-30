@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MDBInput, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import { fetchUsers } from './../../actions/users';
 import { createChatroom, fetchChatrooms } from './../../actions/chatroom';
@@ -28,7 +29,6 @@ create = () => {
     };
     if(!this.props.chatroomDetails.isFetching)
       this.props.createChatroom(chatroom);
-    this.toggle();
   } else {
     this.setState({ validationError: true });
   }
@@ -59,6 +59,25 @@ handleRefresh = () => {
 
 componentDidMount() {
   this.handleRefresh();
+}
+
+componentDidUpdate(prevProps) {
+  // Typical usage (don't forget to compare props):
+  if (this.props.chatroomDetails !== prevProps.chatroomDetails) {
+    if (this.props.chatroomDetails.isSuccess){
+      toast('Chatroom created!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      this.props.reloadChatrooms();
+      this.toggle();
+    }
+  }
 }
 
 render() {
