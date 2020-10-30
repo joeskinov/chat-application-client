@@ -134,8 +134,8 @@ myChangeHandler = (event) => {
 
 sendMessage = () => {
   // write code here to send message
-  console.log(this.state.selectedChat);
-  this.props.createChatmessage({ chatRoom: this.state.selectedChat, message: this.state.message });
+  if(this.state.message.length > 0)
+    this.props.createChatmessage({ chatRoom: this.state.selectedChat, message: this.state.message });
 }
 
 componentWillMount() { 
