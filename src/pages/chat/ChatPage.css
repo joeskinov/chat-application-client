@@ -17,7 +17,7 @@
     width: 3rem;
   }
   
-  /* .chat-room .chat-message:nth-of-type(even) {
+  .chat-room .chat-message:nth-of-type(even) {
     flex-direction: row-reverse;
-  } */
+  }
   
