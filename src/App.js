@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import {
+/* import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
-} from "react-router-dom";
+} from "react-router-dom"; */
+import { Route, Switch } from 'react-router';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./index.css";
 import logo from "./logo.png";
 
@@ -15,24 +18,25 @@ import ChatPage from "./pages/chat/ChatPage";
 class App extends Component {
   render() {
     return (
-      <Router>
       <div>
         <Switch>
-           {/*<Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route> */}
-          <Route path="/chat">
-            <ChatPage />
-          </Route>
-          <Route path="/">
-            <HomePage />
-          </Route>
+          <Route exact path="/chat" component={ChatPage} />
+          <Route exact path="/" component={HomePage} />
         </Switch>
+        <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              />
+              {/* Same as */}
+        <ToastContainer />
       </div>
-    </Router>
     );
   }
 }

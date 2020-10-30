@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
 import userSignup from './users/signup.reducer';
 import userLogin from './users/login.reducer';
 import fetchUsers from './users/fetchUser.reducer';
@@ -8,7 +9,8 @@ import fetchChatmessage from './chatmessages/fetchChatmessages.reducer';
 import createChatmessage from './chatmessages/createChatmessage.reducer';
 
 
-export default combineReducers({
+export default (history) => combineReducers({
+    router: connectRouter(history),
     userSignup,
     userLogin,
     fetchUsers,

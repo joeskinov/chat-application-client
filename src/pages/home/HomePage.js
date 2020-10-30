@@ -11,8 +11,9 @@ import LoginModal from "./../auth/LoginModal";
 import RegisterModal from './../user/RegisterModal';
 import { connect } from 'react-redux';
 class HomePage extends React.Component {
-    scrollToTop = () => window.scrollTo(0, 0);
-  
+    gotoChats = () => {
+      this.props.history.push("/chat");
+    }
     render() {
       return (
         <>
@@ -41,7 +42,7 @@ class HomePage extends React.Component {
                       This chat application was build on React MDB.
                     </p>
                     <MDBRow className='d-flex flex-row justify-content-center row'>
-                      <LoginModal/>
+                      <LoginModal gotoChats={this.gotoChats} />
                       <RegisterModal/>
                     </MDBRow>
                   </MDBCardBody>
@@ -53,5 +54,9 @@ class HomePage extends React.Component {
       );
     }
   }
+  const mapStateToProps = (state) => ({
+  });
+  const mapDispatchToProps = {
+  }
 
-export default HomePage;
+export default connect(mapStateToProps , mapDispatchToProps)(HomePage);

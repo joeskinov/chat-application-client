@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { MDBInput, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import {loginUser, getToken} from './../../actions/users';
-
 class LoginModal extends Component {
 
   state = {
@@ -11,7 +11,6 @@ class LoginModal extends Component {
     validationError: false,
     modal: true,
   };
-
   login = () => {
     console.log(this.state);
     if (this.state.email !== '' && this.state.password !== '') {
@@ -40,9 +39,25 @@ toggle = () => {
   });
 }
 
+componentDidUpdate(prevProps) {
+  // Typical usage (don't forget to compare props):
+  if (this.props.userDetails !== prevProps.userDetails) {
+    if (this.props.userDetails.isAuthenticated){
+      toast('Authentication Success!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      this.props.gotoChats();
+    }
+  }
+}
+
 render() {
-  if(this.props.userDetails.isAuthenticated)
-    window.open('/chat', '_self');
   return (
     <div>
       <MDBBtn onClick={this.toggle}>Login</MDBBtn>

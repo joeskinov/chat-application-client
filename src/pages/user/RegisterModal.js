@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MDBInput, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import {createUser, fetchUsers, getToken} from './../../actions/users';
 
@@ -24,7 +25,7 @@ class RegisterModal extends Component {
         'phonenumber': this.state.phonenumber,
         'password': this.state.password,
       };
-      if(!this.props.userDetails.isFetching)
+      if(!this.props.newUserDetails.isFetching)
         this.props.createUser(user);
     } else {
       this.setState({ validationError: true });
@@ -48,9 +49,25 @@ toggle = () => {
   });
 }
 
+componentDidUpdate(prevProps) {
+  // Typical usage (don't forget to compare props):
+  if (this.props.newUserDetails !== prevProps.newUserDetails) {
+    if (this.props.newUserDetails.isSignedUp){
+      toast(':) User Registered! Go ahead and signIn mate!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      this.toggle();
+    }
+  }
+}
+
 render() {
-  if(this.props.userDetails.isAuthenticated)
-    window.open('/chat', '_self');
   return (
     <div>
       <MDBBtn color="primary" onClick={this.toggle}>Register</MDBBtn>
