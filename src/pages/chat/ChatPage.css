@@ -21,3 +21,8 @@
     flex-direction: row-reverse;
   }
   
+  .scrollable-chat{
+    position: relative;
+    overflow-y: scroll;
+    height: 570px;
+  }

@@ -9,7 +9,7 @@ const ChatMessage = ({ msg: { creator, message, chatRoom, createdAt } }) => (
       tag="img"
       src={creator.picture}
       alt="avatar"
-      style={{width: "57px", height: "57px"}}
+      style={{width: "57px", height: "57px", borderRadius:"57px"}}
       className="mx-2 z-depth-1"
     />
     <MDBCard>

@@ -160,8 +160,8 @@ return (
       <MDBCol md="6" xl="4" className="px-0 mb-2 mb-md-0">
         <h6 className="font-weight-bold mb-3 text-lg-left">Member</h6>
         <CreateRoomModal reloadChatrooms={this.handleRefresh} />
-        <div>
-          <div className="white z-depth-1 p-3">
+        <div className="scrollable-chat">
+          <div className="white z-depth-1 p-3 ">
           <MDBListGroup className="friend-list">
             {this.props.chatrooms.chatrooms.map(friend => (
               <Chatroom key={friend.id}  friend={friend} setChatRoom={this.setChatRoom} />
@@ -175,9 +175,10 @@ return (
           <MDBListGroup className="list-unstyled pl-3">
             {this.props.chatmessages.chatmessages.map(message => (
             <ChatMessage key={message.id} msg={message} />
-            ))}
-            <li>
-              <div className="form-group basic-textarea">
+            ))}    
+          </MDBListGroup>
+        </div>
+        <div className="form-group basic-textarea">
                 <MDBInput label="Enter text message here" id="message" onChange={this.myChangeHandler} />
                 <MDBBtn
                         color="info"
@@ -186,15 +187,12 @@ return (
                         className="float-right mt-4"
                         onClick={this.sendMessage}>
                         Send
-                      </MDBBtn>
-                    </div>
-                  </li>
-                </MDBListGroup>
-              </div>
-            </MDBCol>
-          </MDBRow>
-        </MDBCardBody>
-      </MDBCard>
+                </MDBBtn>
+        </div>
+      </MDBCol>
+    </MDBRow>
+  </MDBCardBody>
+</MDBCard>
     );
   }
 }
