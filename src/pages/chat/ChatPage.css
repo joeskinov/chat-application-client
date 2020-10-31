@@ -26,3 +26,7 @@
     overflow-y: scroll;
     height: 570px;
   }
+
+  .scrollable-chat .message-list {
+    flex-direction: column-reverse;
+  }

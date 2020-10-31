@@ -6,6 +6,7 @@ import { MDBCard, MDBCardBody, MDBRow, MDBCol, MDBListGroup, MDBInput, MDBBtn} f
 import { toast } from 'react-toastify';
 import "./ChatPage.css";
 
+
 //import components
 import Chatroom from './../../components/Chatroom';
 import ChatMessage from './../../components/ChatMessage';
@@ -172,7 +173,7 @@ return (
       </MDBCol>
       <MDBCol md="6" xl="8" className="pl-md-3 px-lg-auto mt-2 mt-md-0">
         <div className="scrollable-chat">
-          <MDBListGroup className="list-unstyled pl-3">
+          <MDBListGroup className="list-unstyled pl-3 message-list">
             {this.props.chatmessages.chatmessages.map(message => (
             <ChatMessage key={message.id} msg={message} />
             ))}    
