@@ -20,7 +20,6 @@ const userSignup = (state = initialState, action) => {
                 isFetching: true,
                 isSignedUp: false
             }
-        break;
         }
         case SIGNUP_SUCCESS: {
             if (action.data.data) {
@@ -54,7 +53,6 @@ const userSignup = (state = initialState, action) => {
             return {
                 ...state,
                 appError: action.data.message,
-                isFetching: false,
                 isFetching: false,
             }
         break;

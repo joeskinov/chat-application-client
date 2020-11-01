@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { MDBCard, MDBCardBody} from "mdbreact";
 
-import {convertDate, trunc} from './../config/functions';
+import {convertDate} from './../config/functions';
 
 const ChatMessage = ({ msg: { creator, message, chatRoom, createdAt } }) => (
   <li className="chat-message d-flex justify-content-between mb-4">

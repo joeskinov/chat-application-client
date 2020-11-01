@@ -9,7 +9,6 @@ import { Route, Switch } from 'react-router';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./index.css";
-import logo from "./logo.png";
 
 //import pages
 import HomePage from "./pages/home/HomePage";

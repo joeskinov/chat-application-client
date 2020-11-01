@@ -21,12 +21,20 @@
     flex-direction: row-reverse;
   }
   
-  .scrollable-chat{
+  /* .scrollable-chat{
+    background-color: black;
+    padding: 5px;
+  } */
+  .friend-list{
     position: relative;
     overflow-y: scroll;
     height: 570px;
   }
 
   .scrollable-chat .message-list {
+    position: relative;
+    overflow-y: scroll;
+    height: 570px;
+    display: flex;
     flex-direction: column-reverse;
   }

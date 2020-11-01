@@ -1,7 +1,7 @@
 import React from "react";
 import { MDBListGroupItem, MDBBadge, MDBIcon} from "mdbreact";
 
-import {convertDate, trunc} from './../config/functions';
+import {convertDate} from './../config/functions';
 
 const Chatroom = ({
   friend: { id, name, creator, user2, message, createdAt, participants, seen, toRespond, active },

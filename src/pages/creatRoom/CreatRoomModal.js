@@ -82,7 +82,7 @@ componentDidUpdate(prevProps) {
 
 render() {
   return (
-    <div>
+    <div style={{display:"inline"}} >
       <MDBBtn onClick={this.toggle}>New</MDBBtn>
       <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
         <MDBModalHeader toggle={this.toggle}>Create Chatroom</MDBModalHeader>

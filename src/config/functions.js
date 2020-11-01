@@ -1,3 +1,5 @@
+import socketIOClient from "socket.io-client";
+import { SERVER } from './Endpoint';
 export function convertDate(date) {
     let d = new Date(date);
     if (Object.prototype.toString.call(d) === "[object Date]") {
@@ -16,3 +18,7 @@ export function convertDate(date) {
 export function trunc(text) {
     return text.length > 80 ? `${text.substr(0, 80)}...` : text;
 }
+
+export const socket = socketIOClient(SERVER);
+
+ 

@@ -12,7 +12,7 @@ import {
   import { getToken, saveData } from "./users";
   
   function createChatmessagePromise(chatroomData, token) {
-    console.log(chatroomData);
+    // console.log(chatroomData);
     return axios({
       method: 'post',
       url: `${SERVER}/roomMessage`,

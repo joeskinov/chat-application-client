@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { fetchChatrooms, createChatroom } from './../../actions/chatroom';
+import { fetchChatrooms } from './../../actions/chatroom';
 import { fetchChatmessages, createChatmessage } from './../../actions/chatmessage';
 import { MDBCard, MDBCardBody, MDBRow, MDBCol, MDBListGroup, MDBInput, MDBBtn} from "mdbreact";
 import { toast } from 'react-toastify';
+import { socket } from './../../config/functions';
 import "./ChatPage.css";
 
 
@@ -110,6 +111,7 @@ roomsLimit: 10,
 messagesPage: 1,
 messagesLimit: 10,
 };
+
 }
 setChatRoom = (roomId) => {
   // write code to set a particular chatroom here
@@ -139,15 +141,19 @@ sendMessage = () => {
     this.props.createChatmessage({ chatRoom: this.state.selectedChat, message: this.state.message });
 }
 
-componentWillMount() { 
+componentDidMount() { 
   this.handleRefresh();
+  socket.on('message-recieved', function(data){
+    console.log('okff--------------', data);
+  });
 }
 
 componentDidUpdate(prevProps) {
   // Typical usage (don't forget to compare props):
   if (this.props.newchatmessage !== prevProps.newchatmessage) {
     if (this.props.newchatmessage.isSuccess){
-      toast('message sent!');
+      toast('message sent! ');
+      socket.emit("message", {roomId: this.state.selectedChat, messageId: this.props.newchatmessage.chatmessageDetails.id});
       this.handleRefreshMessages();
     }
   }
@@ -159,15 +165,15 @@ return (
   <MDBCardBody>
     <MDBRow className="px-lg-2 px-2">
       <MDBCol md="6" xl="4" className="px-0 mb-2 mb-md-0">
-        <h6 className="font-weight-bold mb-3 text-lg-left">Member</h6>
+        <h6 className="font-weight-bold mb-3 text-lg-left" style={{display:"inline"}}>Rooms</h6>
         <CreateRoomModal reloadChatrooms={this.handleRefresh} />
         <div className="scrollable-chat">
           <div className="white z-depth-1 p-3 ">
-          <MDBListGroup className="friend-list">
-            {this.props.chatrooms.chatrooms.map(friend => (
-              <Chatroom key={friend.id}  friend={friend} setChatRoom={this.setChatRoom} />
-            ))}
-          </MDBListGroup>
+            <MDBListGroup className="friend-list">
+              {this.props.chatrooms.chatrooms.map(friend => (
+                <Chatroom key={friend.id}  friend={friend} setChatRoom={this.setChatRoom} />
+              ))}
+            </MDBListGroup>
           </div>
         </div>
       </MDBCol>
