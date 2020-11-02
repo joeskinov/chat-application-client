@@ -1,9 +1,9 @@
 import React from "react";
-import { MDBCard, MDBCardBody} from "mdbreact";
+import { MDBBtnGroup, MDBCard, MDBCardBody} from "mdbreact";
 
 import {convertDate} from './../config/functions';
 
-const ChatMessage = ({ msg: { creator, message, chatRoom, createdAt } }) => (
+const ChatMessage = ({ msg: { id, creator, message, chatRoom, createdAt } }) => (
   <li className="chat-message d-flex justify-content-between mb-4">
     <img
       tag="img"

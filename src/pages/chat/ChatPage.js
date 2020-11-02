@@ -17,93 +17,8 @@ class ChatPage extends Component {
 constructor() {
 super();
 this.state = {
-chatrooms: [
-{
-name: "John Doe",
-avatar: "default-avatar.png",
-message: "Hello, Are you there?",
-when: "Just now",
-toRespond: 1,
-seen: false,
-active: true
-},
-{
-name: "Danny Smith",
-message: "Lorem ipsum dolor sit",
-avatar: "default-avatar.png",
-when: "5 min ago",
-toRespond: 0,
-seen: false,
-active: false
-},
-{
-name: "Alex Steward",
-message: "Lorem ipsum dolor sit",
-avatar: "default-avatar.png",
-when: "Yesterday",
-toRespond: 0,
-seen: false,
-active: false
-},
-{
-name: "Ashley Olsen",
-message: "Lorem ipsum dolor sit",
-avatar: "default-avatar.png",
-when: "Yesterday",
-toRespond: 0,
-seen: false,
-active: false
-},
-{
-name: "Kate Moss",
-message: "Lorem ipsum dolor sit",
-avatar: "default-avatar.png",
-when: "Yesterday",
-toRespond: 0,
-seen: false,
-active: false
-},
-{
-name: "Lara Croft",
-message: "Lorem ipsum dolor sit",
-avatar: "default-avatar.png",
-when: "Yesterday",
-toRespond: 0,
-seen: false,
-active: false
-},
-{
-name: "Brad Pitt",
-message: "Lorem ipsum dolor sit",
-avatar: "default-avatar.png",
-when: "5 min ago",
-toRespond: 0,
-seen: true,
-active: false
-}
-],
-messages: [
-{
-author: "Brad Pitt",
-avatar: "default-avatar.png",
-when: "12 mins ago",
-message:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-},
-{
-author: "Lara Croft",
-avatar: "default-avatar.png",
-when: "13 mins ago",
-message:
-" Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
-},
-{
-author: "Brad Pitt",
-avatar: "default-avatar.png",
-when: "14 mins ago",
-message:
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-}
-],
+chatrooms: [],
+messages: [],
 selectedChat:'',
 message: '',
 roomsPage: 1,
@@ -141,11 +56,16 @@ sendMessage = () => {
     this.props.createChatmessage({ chatRoom: this.state.selectedChat, message: this.state.message });
 }
 
-componentDidMount() { 
+componentWillMount() { 
   this.handleRefresh();
   socket.on('message-recieved', function(data){
     console.log('okff--------------', data);
   });
+  this.setState({
+    messages: this.props.chatmessages.chatmessages
+  },()=>{
+    console.log(this.state.messages);
+  })
 }
 
 componentDidUpdate(prevProps) {
@@ -155,6 +75,16 @@ componentDidUpdate(prevProps) {
       toast('message sent! ');
       socket.emit("message", {roomId: this.state.selectedChat, messageId: this.props.newchatmessage.chatmessageDetails.id});
       this.handleRefreshMessages();
+    }
+  }
+
+  if (this.props.chatmessages !== prevProps.chatmessages) {
+    if (this.props.chatmessages.isSuccess && this.selectedChat === this.props.chatmessages.chatmessages.id){
+        this.setState({
+          messages: this.props.chatmessages.chatmessages
+        },()=>{
+          console.log(this.state.messages);
+        })
     }
   }
 }
@@ -180,7 +110,7 @@ return (
       <MDBCol md="6" xl="8" className="pl-md-3 px-lg-auto mt-2 mt-md-0">
         <div className="scrollable-chat">
           <MDBListGroup className="list-unstyled pl-3 message-list">
-            {this.props.chatmessages.chatmessages.map(message => (
+            {this.state.messages.map(message => (
             <ChatMessage key={message.id} msg={message} />
             ))}    
           </MDBListGroup>
